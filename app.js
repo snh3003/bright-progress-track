@@ -16,15 +16,9 @@ client.connect(err => {
 });
 
 
-app.get('/login', (req, res) => {
+app.get('/login', async (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  res.send(
-    console.log(
-      login(collection, req.query.email, req.query.password)
-        .then(res => {
-          console.log(res);
-          return res
-        })))
+  res.json(await login(collection, req.query.email, req.query.password))
 })
 
 app.listen(port, () => {
