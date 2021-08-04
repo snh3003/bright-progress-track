@@ -12,18 +12,15 @@ const login = async (collection, email, password) => {
       arrayData => {
         if (filter.email === arrayData.email && filter.password === arrayData.password) {
           return {
-            'exists': true,
             'success': true
           }
         }
         return {
-          'exists': true,
           'success': false
         }
       })
     .catch(() => {
       return {
-        'exists': false,
         'success': false
       }
     });
