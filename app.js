@@ -4,7 +4,7 @@ const app = express();
 const port = 3000;
 const login = require('./controllers/login');
 
-let collection = "";
+let collection;
 
 const uri = "mongodb+srv://admin:HxUXevZHpYILeKAM@production.gmyen.mongodb.net/Bright-Progress-Track?authSource=admin&replicaSet=atlas-cmxoo1-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -17,12 +17,18 @@ client.connect(err => {
 
 
 app.get('/login', (req, res) => {
-    //console.log(login(collection, req.query.email, req.query.password));
-    res.send(login(collection, req.query.email, req.query.password));
+  res.setHeader('Content-Type', 'application/json');
+  res.send(
+    console.log(
+      login(collection, req.query.email, req.query.password)
+        .then(res => {
+          console.log(res);
+          return res
+        })))
 })
 
 app.listen(port, () => {
-    console.log(`Email Server listening at http://localhost:${port}`)
+  console.log(`Email Server listening at http://localhost:${port}`)
 })
 
 client.close();
